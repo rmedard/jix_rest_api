@@ -34,7 +34,7 @@ class CustomTypedDataNormalizer implements NormalizerInterface {
     public function normalize($object, $format = null, array $context = array())
     {
         \Drupal::logger('jix_rest_api')->debug('normalizer called...');
-        return $this->normalize($object);
+        return $object;
 
 //        $value = $object->getValue();
 ////        kint($value);
