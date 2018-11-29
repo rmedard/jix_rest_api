@@ -9,6 +9,7 @@
 namespace Drupal\jir_rest_api\Normalizer;
 
 use Drupal\Core\Field\FieldItemInterface;
+use Drupal\hal\Normalizer\FieldItemNormalizer;
 use Symfony\Component\Serializer\Exception\CircularReferenceException;
 use Symfony\Component\Serializer\Exception\InvalidArgumentException;
 use Symfony\Component\Serializer\Exception\LogicException;
@@ -34,9 +35,8 @@ class CustomTypedDataNormalizer implements NormalizerInterface {
      */
     public function normalize($object, $format = null, array $context = array())
     {
-        if ($object instanceof FieldItemInterface) {
-            return $object->getValue();
-        }
+        $normalizer = new FieldItemNormalizer();
+        return $normalizer->normalize($object);
 
 //        $value = $object->getValue();
 ////        kint($value);
