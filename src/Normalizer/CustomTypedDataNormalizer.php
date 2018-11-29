@@ -8,14 +8,16 @@
 
 namespace Drupal\jir_rest_api\Normalizer;
 
+use Drupal\Core\Datetime\DrupalDateTime;
 use Drupal\Core\Entity\ContentEntityInterface;
+use Drupal\hal\Normalizer\ContentEntityNormalizer;
 use Drupal\node\NodeInterface;
 use Symfony\Component\Serializer\Exception\CircularReferenceException;
 use Symfony\Component\Serializer\Exception\InvalidArgumentException;
 use Symfony\Component\Serializer\Exception\LogicException;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
-class CustomTypedDataNormalizer implements NormalizerInterface {
+class CustomTypedDataNormalizer extends ContentEntityNormalizer {
 
     /**
      * Checks whether the given class is supported for normalization by this normalizer.
@@ -25,10 +27,10 @@ class CustomTypedDataNormalizer implements NormalizerInterface {
      *
      * @return bool
      */
-    public function supportsNormalization($data, $format = null)
-    {
-        return $data instanceof ContentEntityInterface;
-    }
+//    public function supportsNormalization($data, $format = null)
+//    {
+//        return $data instanceof ContentEntityInterface;
+//    }
 
     /**
      * Normalizes an object into a set of arrays/scalars.
@@ -46,8 +48,20 @@ class CustomTypedDataNormalizer implements NormalizerInterface {
      */
     public function normalize($object, $format = null, array $context = array())
     {
+        $attributes = parent::normalize($object, $format, $context);
+        $changed_timestamp = $object->getChangedTime();
+        $created_timestamp = $object->getCreatedTime();
+
+        $changed_date = DrupalDateTime::createFromTimestamp($changed_timestamp);
+        $created_date = DrupalDateTime::createFromTimestamp($created_timestamp);
+
+        $attributes['changed_iso8601'] = $changed_date->format('d-m-Y H:i:s');
+        $attributes['created_iso8601'] = $created_date->format('d-m-Y H:i:s');
+        $attributes['link'] = $object->toUrl()->toString();
+        ksort($attributes);
+
         \Drupal::logger('jix_rest_api')->debug('normalizer called...');
-        return $object;
+        return $attributes;
     }
 
 
