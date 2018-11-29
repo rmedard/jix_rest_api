@@ -37,8 +37,8 @@ class CustomTypedDataNormalizer extends NormalizerBase {
 //        kint($value);
 //        die();
         if (is_array($value) and is_array($value[0])){
-            if (isset($value[0]['value'])) {
-                $value = $value[0]['value'];
+            if (isset($value[0]->value)) {
+                $value = $value[0]->value;
             }
         }
         return $value;
