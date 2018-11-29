@@ -8,14 +8,27 @@
 
 namespace Drupal\jir_rest_api\Normalizer;
 
-use Drupal\Core\Field\FieldItemInterface;
+use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\node\NodeInterface;
-use Drupal\serialization\Normalizer\ContentEntityNormalizer;
+use Symfony\Component\Serializer\Exception\CircularReferenceException;
+use Symfony\Component\Serializer\Exception\InvalidArgumentException;
+use Symfony\Component\Serializer\Exception\LogicException;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 class CustomTypedDataNormalizer implements NormalizerInterface {
 
-    protected $supportedInterfaceOrClass = 'Drupal\Core\TypedData\TypedDataInterface';
+    /**
+     * Checks whether the given class is supported for normalization by this normalizer.
+     *
+     * @param mixed $data Data to normalize
+     * @param string $format The format being (de-)serialized from or into
+     *
+     * @return bool
+     */
+    public function supportsNormalization($data, $format = null)
+    {
+        return $data instanceof ContentEntityInterface;
+    }
 
     /**
      * Normalizes an object into a set of arrays/scalars.
@@ -35,28 +48,7 @@ class CustomTypedDataNormalizer implements NormalizerInterface {
     {
         \Drupal::logger('jix_rest_api')->debug('normalizer called...');
         return $object;
-
-//        $value = $object->getValue();
-////        kint($value);
-////        die();
-//        if (is_array($value) and isset($value[0]->{'value'})){
-////            if (isset($value[0]->value)) {
-//                $value = $value[0]->{'value'};
-////            }
-//        }
-//        return $value;
     }
 
-    /**
-     * Checks whether the given class is supported for normalization by this normalizer.
-     *
-     * @param mixed $data Data to normalize
-     * @param string $format The format being (de-)serialized from or into
-     *
-     * @return bool
-     */
-    public function supportsNormalization($data, $format = null)
-    {
-        return $data instanceof NodeInterface;
-    }
+
 }
