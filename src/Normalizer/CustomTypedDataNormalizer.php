@@ -9,10 +9,6 @@
 namespace Drupal\jir_rest_api\Normalizer;
 
 use Drupal\Core\Field\FieldItemInterface;
-use Drupal\hal\Normalizer\FieldItemNormalizer;
-use Symfony\Component\Serializer\Exception\CircularReferenceException;
-use Symfony\Component\Serializer\Exception\InvalidArgumentException;
-use Symfony\Component\Serializer\Exception\LogicException;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 class CustomTypedDataNormalizer implements NormalizerInterface {
@@ -35,6 +31,7 @@ class CustomTypedDataNormalizer implements NormalizerInterface {
      */
     public function normalize($object, $format = null, array $context = array())
     {
+        \Drupal::logger('jix_rest_api')->debug('normalizer called...');
         if ($object instanceof FieldItemInterface) {
             $object = $object->getValue();
         }
