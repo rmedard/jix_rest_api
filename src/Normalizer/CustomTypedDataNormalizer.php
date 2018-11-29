@@ -18,6 +18,18 @@ use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 class CustomTypedDataNormalizer implements NormalizerInterface {
 
+    protected $entityTypeManager;
+
+    /**
+     * CustomTypedDataNormalizer constructor.
+     * @param $entityTypeManager
+     */
+    public function __construct($entityTypeManager)
+    {
+        $this->entityTypeManager = $entityTypeManager;
+    }
+
+
     /**
      * Normalizes an object into a set of arrays/scalars.
      *
@@ -34,7 +46,8 @@ class CustomTypedDataNormalizer implements NormalizerInterface {
      */
     public function normalize($object, $format = null, array $context = array())
     {
-        $attributes = $this->normalize($object);
+        $normalizer = new \Drupal\serialization\Normalizer\ContentEntityNormalizer($this->entityTypeManager);
+        $attributes = $normalizer->normalize($object);
         $changed_timestamp = $object->getChangedTime();
         $created_timestamp = $object->getCreatedTime();
 
