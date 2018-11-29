@@ -32,7 +32,7 @@ class CustomTypedDataNormalizer extends ContentEntityNormalizer {
      */
     public function normalize($object, $format = null, array $context = array())
     {
-        $attributes = parent::normalize($object, $format, $context);
+//        $attributes = parent::normalize($object, $format, $context);
 //        $changed_timestamp = $object->getChangedTime();
 //        $created_timestamp = $object->getCreatedTime();
 //
@@ -45,7 +45,7 @@ class CustomTypedDataNormalizer extends ContentEntityNormalizer {
 //        ksort($attributes);
 
         \Drupal::logger('jix_rest_api')->debug('normalizer called...');
-        return $attributes;
+        return $object;
     }
 
 
