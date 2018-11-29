@@ -34,12 +34,12 @@ class CustomTypedDataNormalizer extends NormalizerBase {
     public function normalize($object, $format = null, array $context = array())
     {
         $value = $object->getValue();
-        kint($value);
-        die();
-        if (is_array($value) and is_array($value[0])){
-            if (isset($value[0]->value)) {
+//        kint($value);
+//        die();
+        if (is_array($value) and isset($value[0]->value)){
+//            if (isset($value[0]->value)) {
                 $value = $value[0]->value;
-            }
+//            }
         }
         return $value;
     }
