@@ -8,12 +8,13 @@
 
 namespace Drupal\jir_rest_api\Normalizer;
 
-use Drupal\serialization\Normalizer\NormalizerBase;
+use Drupal\Core\Field\FieldItemInterface;
 use Symfony\Component\Serializer\Exception\CircularReferenceException;
 use Symfony\Component\Serializer\Exception\InvalidArgumentException;
 use Symfony\Component\Serializer\Exception\LogicException;
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
-class CustomTypedDataNormalizer extends NormalizerBase {
+class CustomTypedDataNormalizer implements NormalizerInterface {
 
     protected $supportedInterfaceOrClass = 'Drupal\Core\TypedData\TypedDataInterface';
 
@@ -33,14 +34,31 @@ class CustomTypedDataNormalizer extends NormalizerBase {
      */
     public function normalize($object, $format = null, array $context = array())
     {
-        $value = $object->getValue();
-//        kint($value);
-//        die();
-        if (is_array($value) and isset($value[0]->{'value'})){
-//            if (isset($value[0]->value)) {
-                $value = $value[0]->{'value'};
-//            }
+        if ($object instanceof FieldItemInterface) {
+            return $object->getValue();
         }
-        return $value;
+
+//        $value = $object->getValue();
+////        kint($value);
+////        die();
+//        if (is_array($value) and isset($value[0]->{'value'})){
+////            if (isset($value[0]->value)) {
+//                $value = $value[0]->{'value'};
+////            }
+//        }
+//        return $value;
+    }
+
+    /**
+     * Checks whether the given class is supported for normalization by this normalizer.
+     *
+     * @param mixed $data Data to normalize
+     * @param string $format The format being (de-)serialized from or into
+     *
+     * @return bool
+     */
+    public function supportsNormalization($data, $format = null)
+    {
+        return $data instanceof FieldItemInterface;
     }
 }

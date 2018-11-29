@@ -22,6 +22,7 @@ class NodeEntityNormalizer extends ContentEntityNormalizer {
     public function normalize($object, $format = NULL, array $context = array()){
 
         if ($object instanceof NodeInterface) {
+            $object->
             $attributes = parent::normalize($object, $format, $context);
             $changed_timestamp = $object->getChangedTime();
             $created_timestamp = $object->getCreatedTime();
