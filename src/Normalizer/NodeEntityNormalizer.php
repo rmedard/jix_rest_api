@@ -14,16 +14,17 @@ use Drupal\Core\Datetime\DrupalDateTime;
 use Drupal\Core\Entity\EntityMalformedException;
 use Drupal\node\NodeInterface;
 use Drupal\serialization\Normalizer\ContentEntityNormalizer;
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
-class NodeEntityNormalizer extends ContentEntityNormalizer {
+class NodeEntityNormalizer implements NormalizerInterface {
 
     protected $supportedInterfaceOrClass = 'Drupal\node\NodeInterface';
 
     public function normalize($object, $format = NULL, array $context = array()){
 
         if ($object instanceof NodeInterface) {
-            $object->
-            $attributes = parent::normalize($object, $format, $context);
+//            $attributes = parent::normalize($object, $format, $context);
+//            $attributes = new ContentEntityNormalizer()->$this->normalize()
             $changed_timestamp = $object->getChangedTime();
             $created_timestamp = $object->getCreatedTime();
 
@@ -39,8 +40,21 @@ class NodeEntityNormalizer extends ContentEntityNormalizer {
                     ->error(t('Entity URL creation failed @error', array('@error', $e)));
             }
             ksort($attributes);
+
             return $attributes;
         }
     }
 
+    /**
+     * Checks whether the given class is supported for normalization by this normalizer.
+     *
+     * @param mixed $data Data to normalize
+     * @param string $format The format being (de-)serialized from or into
+     *
+     * @return bool
+     */
+    public function supportsNormalization($data, $format = null)
+    {
+        return $data instanceof NodeInterface;
+    }
 }
