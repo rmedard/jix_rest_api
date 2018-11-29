@@ -10,6 +10,7 @@ namespace Drupal\jir_rest_api\Normalizer;
 
 use Drupal\Core\Field\FieldItemInterface;
 use Drupal\node\NodeInterface;
+use Drupal\serialization\Normalizer\ContentEntityNormalizer;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 class CustomTypedDataNormalizer implements NormalizerInterface {
@@ -33,10 +34,7 @@ class CustomTypedDataNormalizer implements NormalizerInterface {
     public function normalize($object, $format = null, array $context = array())
     {
         \Drupal::logger('jix_rest_api')->debug('normalizer called...');
-        if ($object instanceof NodeInterface) {
-            $object = $object->getValue();
-        }
-        return $object;
+        return $this->normalize($object);
 
 //        $value = $object->getValue();
 ////        kint($value);
