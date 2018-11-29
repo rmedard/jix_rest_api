@@ -4,8 +4,3 @@ services:
     tags:
     - { name: normalizer, priority: 2 }
 
-  jir_rest_api.node_entity:
-    class: Drupal\jir_rest_api\Normalizer\NodeEntityNormalizer
-    arguments: ['@entity.manager']
-    tags:
-    - { name: normalizer, priority: 8 }
