@@ -35,8 +35,10 @@ class CustomTypedDataNormalizer implements NormalizerInterface {
      */
     public function normalize($object, $format = null, array $context = array())
     {
-        $normalizer = new FieldItemNormalizer();
-        return $normalizer->normalize($object);
+        if ($object instanceof FieldItemInterface) {
+            $object = $object->getValue();
+        }
+        return $object;
 
 //        $value = $object->getValue();
 ////        kint($value);
