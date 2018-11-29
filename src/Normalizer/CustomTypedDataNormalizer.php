@@ -8,10 +8,10 @@
 
 namespace Drupal\jir_rest_api\Normalizer;
 
-
-use Drupal;
 use Drupal\serialization\Normalizer\NormalizerBase;
-use phpDocumentor\Reflection\Types\Scalar;
+use Symfony\Component\Serializer\Exception\CircularReferenceException;
+use Symfony\Component\Serializer\Exception\InvalidArgumentException;
+use Symfony\Component\Serializer\Exception\LogicException;
 
 class CustomTypedDataNormalizer extends NormalizerBase {
 
@@ -20,13 +20,19 @@ class CustomTypedDataNormalizer extends NormalizerBase {
     /**
      * Normalizes an object into a set of arrays/scalars.
      *
-     * @param object $object object to normalize
-     * @param string $format format the normalization result will be encoded as
+     * @param mixed $object Object to normalize
+     * @param string $format Format the normalization result will be encoded as
      * @param array $context Context options for the normalizer
      *
-     * @return array|scalar
+     * @return array|string|int|float|bool
+     *
+     * @throws InvalidArgumentException   Occurs when the object given is not an attempted type for the normalizer
+     * @throws CircularReferenceException Occurs when the normalizer detects a circular reference when no circular
+     *                                    reference handler can fix it
+     * @throws LogicException             Occurs when the normalizer is not called in an expected context
      */
-    public function normalize($object, $format = null, array $context = array()){
+    public function normalize($object, $format = null, array $context = array())
+    {
         $value = $object->getValue();
         if (isset($value[0]) && isset($value[0]['value'])){
             $value = $value[0]['value'];
