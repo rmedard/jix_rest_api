@@ -17,6 +17,11 @@ use Symfony\Component\Serializer\Exception\LogicException;
 class CustomTypedDataNormalizer extends ContentEntityNormalizer {
 
     /**
+     * @var string
+     */
+    protected $supportedInterfaceOrClass = 'Drupal\node\NodeInterface';
+
+    /**
      * Normalizes an object into a set of arrays/scalars.
      *
      * @param mixed $object Object to normalize
