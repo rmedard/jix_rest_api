@@ -5,7 +5,7 @@ services:
     tags:
     - { name: normalizer, priority: 8 }
 
-  jir_rest_api.typed_data:
+  jir_rest_api.normalizer.typed_data:
     class: Drupal\jir_rest_api\Normalizer\TypedDataNormalizer
     tags:
       - { name: normalizer, priority: 2 }
