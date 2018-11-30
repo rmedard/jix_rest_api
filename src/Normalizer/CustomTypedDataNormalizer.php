@@ -62,6 +62,6 @@ class CustomTypedDataNormalizer extends ContentEntityNormalizer {
      */
     public function supportsNormalization($data, $format = null)
     {
-        return $data instanceof NodeInterface;
+        return $data instanceof ContentEntityInterface;
     }
 }
