@@ -24,7 +24,7 @@ class CustomTypedDataNormalizer extends ContentEntityNormalizer {
     /**
      * Normalizes an object into a set of arrays/scalars.
      *
-     * @param mixed $object Object to normalize
+     * @param mixed $entity Object to normalize
      * @param string $format Format the normalization result will be encoded as
      * @param array $context Context options for the normalizer
      *
@@ -35,19 +35,19 @@ class CustomTypedDataNormalizer extends ContentEntityNormalizer {
      *                                    reference handler can fix it
      * @throws LogicException             Occurs when the normalizer is not called in an expected context
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize($entity, $format = NULL, array $context = [])
     {
 
 //        $attributes = parent::normalize($object);
-        $changed_timestamp = $object->getChangedTime();
-        $created_timestamp = $object->getCreatedTime();
+        $changed_timestamp = $entity->getChangedTime();
+        $created_timestamp = $entity->getCreatedTime();
 
         $changed_date = DrupalDateTime::createFromTimestamp($changed_timestamp);
         $created_date = DrupalDateTime::createFromTimestamp($created_timestamp);
 
         $attributes['changed_iso8601'] = $changed_date->format('d-m-Y H:i:s');
         $attributes['created_iso8601'] = $created_date->format('d-m-Y H:i:s');
-        $attributes['link'] = $object->toUrl()->toString();
+        $attributes['link'] = $entity->toUrl()->toString();
         ksort($attributes);
 
         \Drupal::logger('jix_rest_api')->debug('normalizer called...');
