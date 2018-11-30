@@ -30,6 +30,8 @@ class TypedDataNormalizer extends NormalizerBase
                 if (isset($value[0]['value'])) {
                     $value = $value[0]['value'];
                 }
+            } else {
+                \Drupal::logger('jix_rest_api')->debug("FilteredMarkup...");
             }
             return $value;
         } catch (\Exception $ex) {
