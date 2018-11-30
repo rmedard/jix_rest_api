@@ -32,8 +32,7 @@ class TypedDataNormalizer extends NormalizerBase
                     $value = $value[0]['value'];
                 }
             } else {
-                $value = "---";
-                \Drupal::logger('jix_rest_api')->debug("FilteredMarkup...");
+                \Drupal::logger('jix_rest_api')->debug("FilteredMarkup..." . $value);
             }
             return $value;
         } catch (\Exception $ex) {
