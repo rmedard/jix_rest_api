@@ -49,7 +49,6 @@ class NodeEntityNormalizer extends ContentEntityNormalizer {
         $attributes['link'] = $entity->toUrl()->toString();
         ksort($attributes);
 
-        \Drupal::logger('jix_rest_api')->debug('normalizer called...');
         return $attributes;
     }
 
