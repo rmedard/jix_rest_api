@@ -9,7 +9,6 @@
 namespace Drupal\jir_rest_api\Normalizer;
 
 
-use Drupal\filter\Render\FilteredMarkup;
 use Drupal\serialization\Normalizer\NormalizerBase;
 
 class TypedDataNormalizer extends NormalizerBase
@@ -26,18 +25,9 @@ class TypedDataNormalizer extends NormalizerBase
 //        kint($object);
 //        die();
         $value = $object->getValue();
-        try {
-            if (!($value instanceof FilteredMarkup) and isset($value[0])) {
-                if (isset($value[0]->value)) {
-                    $value = $value[0]->value;
-                }
-            } else {
-                \Drupal::logger('jix_rest_api')->debug("FilteredMarkup..." . $value);
-            }
-            return $value;
-        } catch (\Exception $ex) {
-            \Drupal::logger('jix_rest_api')->debug("Byagagaye: " . $ex);
+        if (isset($value[0]) && isset($value[0]['value'])) {
+            $value = $value[0]['value'];
         }
-        return "";
+        return $value;
     }
 }
