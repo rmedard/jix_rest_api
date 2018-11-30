@@ -26,8 +26,10 @@ class TypedDataNormalizer extends NormalizerBase
 
         $value = $object->getValue();
         try {
-            if (isset($value[0]) and !$value[0] instanceof FilteredMarkup and isset($value[0]['value'])) {
-                $value = $value[0]['value'];
+            if (isset($value[0]) and !($value[0] instanceof FilteredMarkup)) {
+                if (isset($value[0]['value'])) {
+                    $value = $value[0]['value'];
+                }
             }
             return $value;
         } catch (\Exception $ex) {
