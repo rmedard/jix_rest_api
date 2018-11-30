@@ -28,8 +28,8 @@ class TypedDataNormalizer extends NormalizerBase
         $value = $object->getValue();
         try {
             if (!($value instanceof FilteredMarkup) and isset($value[0])) {
-                if (isset($value[0]['value'])) {
-                    $value = $value[0]['value'];
+                if (isset($value[0]->value)) {
+                    $value = $value[0]->value;
                 }
             } else {
                 \Drupal::logger('jix_rest_api')->debug("FilteredMarkup..." . $value);
