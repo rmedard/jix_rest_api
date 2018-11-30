@@ -1,5 +1,6 @@
 services:
   jir_rest_api.node_entity:
     class: Drupal\jir_rest_api\Normalizer\CustomTypedDataNormalizer
+    arguments: ['@entity.manager']
     tags:
     - { name: normalizer, priority: 8 }
