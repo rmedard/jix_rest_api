@@ -33,5 +33,6 @@ class TypedDataNormalizer extends NormalizerBase
         } catch (\Exception $ex) {
             \Drupal::logger('jix_rest_api')->debug("Byagagaye: " . $ex);
         }
+        return "";
     }
 }
