@@ -8,4 +8,4 @@ services:
   jir_rest_api.normalizer.typed_data:
     class: Drupal\jir_rest_api\Normalizer\TypedDataNormalizer
     tags:
-      - { name: normalizer, priority: 10 }
+      - { name: normalizer, priority: 2 }

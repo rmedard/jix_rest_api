@@ -22,8 +22,6 @@ class TypedDataNormalizer extends NormalizerBase
 
     public function normalize($object, $format = NULL, array $context = array())
     {
-//        kint($object);
-//        die();
         $value = $object->getValue();
         if (isset($value[0]) && isset($value[0]['value'])) {
             $value = $value[0]['value'];
