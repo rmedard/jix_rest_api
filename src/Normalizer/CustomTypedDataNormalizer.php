@@ -9,9 +9,7 @@
 namespace Drupal\jir_rest_api\Normalizer;
 
 use Drupal\Core\Datetime\DrupalDateTime;
-use Drupal\Core\Entity\ContentEntityInterface;
-use Drupal\hal\Normalizer\ContentEntityNormalizer;
-use Drupal\node\NodeInterface;
+use Drupal\serialization\Normalizer\ContentEntityNormalizer;
 use Symfony\Component\Serializer\Exception\CircularReferenceException;
 use Symfony\Component\Serializer\Exception\InvalidArgumentException;
 use Symfony\Component\Serializer\Exception\LogicException;
