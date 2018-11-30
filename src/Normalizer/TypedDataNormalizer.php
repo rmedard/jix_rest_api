@@ -23,7 +23,8 @@ class TypedDataNormalizer extends NormalizerBase
 
     public function normalize($object, $format = NULL, array $context = array())
     {
-
+        kint($object);
+        die();
         $value = $object->getValue();
         try {
             if (!($value instanceof FilteredMarkup) and isset($value[0])) {
