@@ -33,7 +33,7 @@ class CustomTypedDataNormalizer extends ContentEntityNormalizer {
     public function normalize($object, $format = null, array $context = array())
     {
 
-        $attributes = parent::normalize($object);
+//        $attributes = parent::normalize($object);
         $changed_timestamp = $object->getChangedTime();
         $created_timestamp = $object->getCreatedTime();
 
