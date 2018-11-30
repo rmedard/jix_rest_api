@@ -1,5 +1,5 @@
 services:
-  jir_rest_api.typed_data:
+  jir_rest_api.node_entity:
     class: Drupal\jir_rest_api\Normalizer\CustomTypedDataNormalizer
     tags:
-    - { name: normalizer, priority: 2 }
+    - { name: normalizer, priority: 8 }
