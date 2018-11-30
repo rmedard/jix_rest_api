@@ -24,7 +24,7 @@ class TypedDataNormalizer extends NormalizerBase {
 
         $value = $object->getValue();
             if (isset($value[0]) and !$value[0] instanceof MarkupInterface and isset($value[0]['value'])) {
-            $value = $value[0]['#value'];
+            $value = $value[0]['value'];
         }
         return $value;
     }
