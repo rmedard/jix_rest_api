@@ -6,6 +6,6 @@ services:
     - { name: normalizer, priority: 8 }
 
   jir_rest_api.typed_data:
-    class: Drupal\example_normalizer\Normalizer\TypedDataNormalizer
+    class: Drupal\jir_rest_api\Normalizer\TypedDataNormalizer
     tags:
       - { name: normalizer, priority: 2 }
