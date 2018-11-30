@@ -9,7 +9,7 @@
 namespace Drupal\jir_rest_api\Normalizer;
 
 
-use Drupal\Component\Render\MarkupInterface;
+use Drupal\filter\Render\FilteredMarkup;
 use Drupal\serialization\Normalizer\NormalizerBase;
 
 class TypedDataNormalizer extends NormalizerBase
@@ -26,7 +26,7 @@ class TypedDataNormalizer extends NormalizerBase
 
         $value = $object->getValue();
         try {
-            if (isset($value[0]) and !$value[0] instanceof MarkupInterface and isset($value[0]['value'])) {
+            if (isset($value[0]) and !$value[0] instanceof FilteredMarkup and isset($value[0]['value'])) {
                 $value = $value[0]['value'];
             }
             return $value;
