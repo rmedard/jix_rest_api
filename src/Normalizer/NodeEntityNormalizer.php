@@ -39,7 +39,6 @@ class NodeEntityNormalizer extends ContentEntityNormalizer
      */
     public function normalize($entity, $format = NULL, array $context = [])
     {
-        Drupal::logger('jix_rest_api')->info('NodeEntityNormalizer called at ' . date("d-m-Y H:i:s"));
         $attributes = parent::normalize($entity);
         $changed_timestamp = $entity->getChangedTime();
         $created_timestamp = $entity->getCreatedTime();
@@ -47,10 +46,16 @@ class NodeEntityNormalizer extends ContentEntityNormalizer
         $changed_date = DrupalDateTime::createFromTimestamp($changed_timestamp);
         $created_date = DrupalDateTime::createFromTimestamp($created_timestamp);
 
+        /**
+         * Add useful fields
+         */
         $attributes['changed_iso8601'] = $changed_date->format('d-m-Y H:i:s');
         $attributes['created_iso8601'] = $created_date->format('d-m-Y H:i:s');
         $attributes['link'] = $entity->toUrl()->toString();
 
+        /**
+         * Remove unneeded fields eg: 'revision_*'
+         */
         $attributes = array_filter($attributes, function ($key) {
             return 0 !== strpos($key, 'revision_');
         }, ARRAY_FILTER_USE_KEY);

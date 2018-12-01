@@ -3,13 +3,7 @@ services:
     class: Drupal\jir_rest_api\Normalizer\NodeEntityNormalizer
     arguments: ['@entity.manager']
     tags:
-    - { name: normalizer, priority: 7 }
-
-  jir_rest_api.normalizer.entity_reference:
-    class: Drupal\jir_rest_api\Normalizer\EntityReferenceNormalizer
-    arguments: ['@entity.manager']
-    tags:
-      - { name: normalizer, priority: 8 }
+    - { name: normalizer, priority: 8 }
 
   jir_rest_api.normalizer.typed_data:
     class: Drupal\jir_rest_api\Normalizer\TypedDataNormalizer
