@@ -8,6 +8,7 @@
 
 namespace Drupal\jir_rest_api\Normalizer;
 
+use Drupal;
 use Drupal\Core\Datetime\DrupalDateTime;
 use Drupal\serialization\Normalizer\ContentEntityNormalizer;
 use Symfony\Component\Serializer\Exception\CircularReferenceException;
@@ -37,6 +38,7 @@ class NodeEntityNormalizer extends ContentEntityNormalizer {
      */
     public function normalize($entity, $format = NULL, array $context = [])
     {
+        Drupal::logger('jix_rest_api')->info('NodeEntityNormalizer called at ' . date("d-m-Y H:i:s"));
         $attributes = parent::normalize($entity);
         $changed_timestamp = $entity->getChangedTime();
         $created_timestamp = $entity->getCreatedTime();
