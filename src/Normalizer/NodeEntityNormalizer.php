@@ -15,7 +15,8 @@ use Symfony\Component\Serializer\Exception\CircularReferenceException;
 use Symfony\Component\Serializer\Exception\InvalidArgumentException;
 use Symfony\Component\Serializer\Exception\LogicException;
 
-class NodeEntityNormalizer extends ContentEntityNormalizer {
+class NodeEntityNormalizer extends ContentEntityNormalizer
+{
 
     /**
      * @var string
@@ -49,6 +50,11 @@ class NodeEntityNormalizer extends ContentEntityNormalizer {
         $attributes['changed_iso8601'] = $changed_date->format('d-m-Y H:i:s');
         $attributes['created_iso8601'] = $created_date->format('d-m-Y H:i:s');
         $attributes['link'] = $entity->toUrl()->toString();
+
+        $attributes = array_filter($attributes, function ($key) {
+            return 0 !== strpos($key, 'revision_');
+        }, ARRAY_FILTER_USE_KEY);
+
         ksort($attributes);
 
         return $attributes;
