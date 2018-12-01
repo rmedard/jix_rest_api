@@ -9,7 +9,6 @@
 namespace Drupal\jir_rest_api\Normalizer;
 
 
-use Drupal;
 use Drupal\serialization\Normalizer\NormalizerBase;
 
 class TypedDataNormalizer extends NormalizerBase

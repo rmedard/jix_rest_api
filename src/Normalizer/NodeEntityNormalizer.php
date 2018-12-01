@@ -8,7 +8,6 @@
 
 namespace Drupal\jir_rest_api\Normalizer;
 
-use Drupal;
 use Drupal\Core\Datetime\DrupalDateTime;
 use Drupal\serialization\Normalizer\ContentEntityNormalizer;
 use Symfony\Component\Serializer\Exception\CircularReferenceException;
